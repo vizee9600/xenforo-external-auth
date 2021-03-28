@@ -27,7 +27,7 @@ if($user->is_banned) {
 /**
 * Gets the user info & checks the password
 **/
-$loginService = \XF::app()->service('XF:User\Login', $name);
+$loginService = \XF::app()->service('XF:User\Login', $name, $ip);
 $success = $loginService->validate($pass);
     
 /**
