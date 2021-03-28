@@ -23,12 +23,16 @@ $user = $finder->where('username', $name)->fetchOne();
 if($user->is_banned) {
     die('Banned.');
 }
-
+    
 /**
-* Verify the account details
+* Gets the user info & checks the password
 **/
-$loginService = \XF::app()->service('XF:User\Login', $name, $ip);
+$loginService = \XF::app()->service('XF:User\Login', $name);
 $success = $loginService->validate($pass);
+    
+/**
+* Login failed
+**/
 if(!$success) {
     die('fail');
 }
@@ -36,11 +40,6 @@ if(!$success) {
 /**
 * Successful login
 **/
-$columns = array("user_id", "username", "user_group_id", "secondary_group_ids");
-$data = array();
-foreach ($columns as $c) {
-    $data[$c] = $user[$c];
-}
 if($success) {
     echo 'success';
 }
